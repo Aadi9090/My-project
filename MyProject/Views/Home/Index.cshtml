@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(to right, #007bff, #00aaff);
+            color: white;
+            padding: 60px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section .greeting {
+                font-size: 1.25rem;
+            }
+
+                .hero-section .greeting strong {
+                    font-size: 1.5rem;
+                }
+
+        .welcome-text {
+            margin-top: 20px;
+            font-size: 1.25rem;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        .button-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+            .button-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            }
+
+            .button-card a {
+                text-decoration: none;
+                color: #007bff;
+                font-weight: bold;
+                font-size: 1.1rem;
+                display: block;
+                padding: 10px;
+            }
+
+          .button-card a:hover {
+                    color: #0056b3;
+                }
+    </style>
+</head>
+<body style="background-color:lightgray;">
+    <div class="container">
+        <div class="hero-section">
+            @if (Context.Session.GetString("Username") != null)
+            {
+                <div class="greeting">
+                    <span>Hello, </span><strong>@Context.Session.GetString("Username")</strong>!
+                </div>
+            }
+            else
+            {
+                <div class="greeting">
+                    <span>Hello, Guest!</span>
+                </div>
+            }
+
+            <h1 class="display-3 ">Welcome to the Student Management System</h1>
+
+          
+            <div class="button-container row flex-column justify-content-center align-content-center">
+                <div class="col-md-6 mb-4">
+                    <div class="button-card">
+                        <a asp-controller="Student" asp-action="Create"> Create New Student</a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="button-card">
+                        <a asp-controller="Student" asp-action="Index">Show Students</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

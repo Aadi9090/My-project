@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+
+        .navbar {
+            background-color: #343a40; 
+            border-bottom: 2px solid #495057; 
+        }
+
+        .navbar-brand {
+            color: #ffffff !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            cursor: pointer; 
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #f8f9fa !important;
+                background-color: #495057; 
+                border-radius: 0.3rem; 
+            }
+
+        .navbar-toggler {
+            border-color: #ffffff;
+        }
+
+      
+
+        .navbar .btn-danger {
+            background-color: #dc3545; 
+            border-color: #dc3545; 
+            font-size: 0.875rem; 
+            cursor: pointer;
+        }
+
+            .navbar .btn-danger:hover {
+                background-color: #c82333;
+                border-color: #bd2130; 
+            }
+
+        .navbar .text-success {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyProject</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Index">Show Students</a>
+                        </li>
+                    </ul>
+                    <div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="navbar float-end">
+                                <span class="text-primary">Welcome</span><span class="text-success fw-bold p-2">@User.Identity.Name</span>
+                                <a class="btn btn-danger btn-sm" asp-action="LogOut" asp-controller="Account">SignOut</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

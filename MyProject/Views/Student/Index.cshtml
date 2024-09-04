@@ -1,0 +1,199 @@
+﻿@model IEnumerable<MyProject.Models.Student.StudentModel>
+
+@{
+    ViewData["Title"] = "student List";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #80deea); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333; 
+        }
+
+        .container {
+            margin-top: 2rem; 
+        }
+
+        h1 {
+            font-size: 2.5rem; 
+            color: #007bff; 
+            text-shadow: 2px 2px 4px rgba(0, 123, 255, 0.3); 
+        }
+
+        .btn-success {
+            background-color: #28a745; 
+            border-color: #28a745; 
+        }
+
+            .btn-success:hover {
+                background-color: #218838; 
+                border-color: #1e7e34; 
+            }
+
+        .instruction-text {
+            font-size: 1.1rem; 
+            color: #007bff; 
+            text-align: center; 
+            margin-bottom: 1rem; 
+            font-weight: bold; 
+        }
+
+        .table {
+            background-color: #ffffff; 
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+
+            .table th, .table td {
+                text-align: center; 
+                padding: 1rem; 
+            }
+
+            .table thead {
+                background: linear-gradient(to right, #007bff, #0056b3);
+                color: #ffffff; 
+                font-weight: bold;
+            }
+
+        .clickable-row {
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; 
+        }
+
+            .clickable-row:hover {
+                background-color: #e3f2fd;
+                transform: scale(1.02);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            }
+
+            .clickable-row td {
+                transition: color 0.3s ease; 
+            }
+
+            .clickable-row:hover td {
+                color: #007bff; 
+                font-weight: bold; 
+            }
+
+    
+        .text-success, .text-danger {
+            font-size: 1.1rem; 
+            font-weight: bold;
+            margin-bottom: 1rem; 
+        }
+
+        .text-success {
+            color: #28a745; 
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <h1 class="text-center">Students Records</h1>
+                <a class="btn btn-sm btn-success m-1" asp-controller="Student" asp-action="Create">Create</a>
+
+               
+                @if (TempData["success"] != null)
+                {
+                    <p class="text-center text-success">@TempData["success"]</p>
+                }
+
+                @if (TempData["error"] != null)
+                {
+                    <p class="text-center text-danger">@TempData["error"]</p>
+                }
+
+             
+                @if (TempData["delete"] != null)
+                {
+                    <p class="text-center text-success">@TempData["delete"]</p>
+                }
+                @if (TempData["edit"] != null)
+                {
+                    <p class="text-center text-success">@TempData["edit"]</p>
+                }
+
+             
+                <p class="instruction-text">Click on a row to view more details</p>
+
+                <table class="table table-bordered" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var studentt in Model)
+                            {
+                                <tr class="text-center clickable-row" data-id="@studentt.StudentID">
+                                    <td>@studentt.FirstName</td>
+                                    <td>@studentt.LastName</td>
+                                    <td>@studentt.Email</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="text-center">No student found.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+
+
+
+    <script>
+
+        var js = jQuery.noConflict(true);
+        js(document).ready(function () {
+            js('#myTable').DataTable({})
+        });
+
+
+        
+        document.querySelectorAll('.clickable-row').forEach(row => {
+            row.addEventListener('click', function () {
+               
+                const studentId = this.getAttribute('data-id');
+                if (studentId) {
+                   
+                    window.location.href = `/Student/Details/${studentId}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

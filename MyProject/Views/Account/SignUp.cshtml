@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout_Account.cshtml";
+}
+
+
+
+
+@model MyProject.Models.ViewModels.SignUpViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+  
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #E9F5FF; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            margin-top: 5rem; 
+        }
+
+        .border-primary {
+            border-color: #007bff !important; 
+        }
+
+        .rounded {
+            border-radius: 30px; 
+        }
+
+        .btn-success {
+            background-color: #28a745; 
+            border-color: #28a745;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+            .btn-success:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+                transform: scale(1.05); 
+            }
+
+        .form-control {
+            border-radius: 0.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s; 
+        }
+
+            .form-control:focus {
+                border-color: #007bff; 
+                box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); 
+            }
+
+        .text-info {
+            color: #007bff; 
+            animation: fadeIn 1.5s ease-in; 
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .text-danger {
+            font-size: 0.875rem; 
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem; 
+        }
+
+        .text-center {
+            margin-bottom: 2rem; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 border border-primary rounded p-5   bg-white shadow-lg">
+                <div class="text-center mb-4">
+                    <h1 class="text-info">User Registration</h1>
+                </div>
+                @if (TempData["msg"] != null)
+                {
+                    <div>
+                        <p style="color:red;"> @TempData["msg"]</p>
+                    </div>
+                }
+                <form method="post" asp-action="SignUp">
+                    <div class="form-group">
+                        <label asp-for="UserName" class="form-label"></label>
+                        <input type="text" placeholder="Enter Username" asp-for="UserName" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input type="text" placeholder="Enter Email" asp-for="Email" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MobileNo" class="form-label"></label>
+                        <input type="text" placeholder="Enter Mobile" asp-for="MobileNo" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="MobileNo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input type="password" placeholder="Enter Password" asp-for="Password" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                        <input type="password" placeholder="Confirm Password" asp-for="ConfirmPassword" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group ">
+                        <a class=" ml-2  mt-2" asp-action="Login">Already have an account? Login</a>
+                        <input type="submit" class="btn btn-success btn-lg mb-1 mt-2 float-end" value="Register" />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
